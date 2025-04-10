@@ -1,0 +1,28 @@
+import os
+import pandas as pd
+from src.models.training import run_training_pipeline
+
+def test_pipeline_runs():
+    model, df = run_training_pipeline(
+        raw_data_path='src/data/raw/mall_customers.csv',
+        processed_data_path='src/data/processed/test_clustered.csv',
+        model_path='models/test_kmeans_model.pkl',
+        figure_dir='reports/figures/test/',
+        optimal_k=5
+    )
+
+    # Check model type
+    from sklearn.cluster import KMeans
+    assert isinstance(model, KMeans)
+
+    # Check DataFrame integrity
+    assert 'Cluster' in df.columns
+    assert not df.empty
+
+    # Check that model file was created
+    assert os.path.exists('models/test_kmeans_model.pkl')
+
+    # Cleanup test artifacts
+    os.remove('models/test_kmeans_model.pkl')
+    os.remove('src/data/processed/test_clustered.csv')
+
