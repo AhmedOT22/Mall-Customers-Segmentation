@@ -54,27 +54,28 @@ if submit and model:
             st.markdown(f"**Description:** {cluster_data['description']}")
             st.markdown(f"**Recommended Brands:** {cluster_data['recommendation']}")
 
-        style_metric_cards()
+        
+        #style_metric_cards()
 
-        if df is not None:
-            st.markdown("---")
-            st.subheader("Visual Cluster Placement (2D)")
-
-            df_copy = df.copy()
-            df_copy['User'] = 'Existing'
-
-            user_df = pd.DataFrame([input_dict])
-            user_df['Cluster'] = cluster
-            user_df['User'] = 'You'
-
-            viz_df = pd.concat([
-                df_copy[['Annual_Income', 'Spending_Score', 'Cluster', 'User']],
-                user_df[['Annual_Income', 'Spending_Score', 'Cluster', 'User']]
-            ])
-
-            fig = plot_scatter_clusters(viz_df, x='Annual_Income', y='Spending_Score',
-                                        label_col='Cluster', title='Cluster Visualization')
-            st.pyplot(fig)
+        #if df is not None:
+         #   st.markdown("---")
+          #  st.subheader("Visual Cluster Placement (2D)")
+#
+ #           df_copy = df.copy()
+  #          df_copy['User'] = 'Existing'
+#
+ #           user_df = pd.DataFrame([input_dict])
+  #          user_df['Cluster'] = cluster
+   #         user_df['User'] = 'You'
+#
+ #           viz_df = pd.concat([
+  #              df_copy[['Annual_Income', 'Spending_Score', 'Cluster', 'User']],
+   #             user_df[['Annual_Income', 'Spending_Score', 'Cluster', 'User']]
+    #        ])
+#
+ #           fig = plot_scatter_clusters(viz_df, x='Annual_Income', y='Spending_Score',
+  #                                      label_col='Cluster', title='Cluster Visualization')
+   #         st.pyplot(fig)
 
     except Exception as e:
         st.error(f"Prediction failed: {e}")
