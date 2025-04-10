@@ -5,9 +5,7 @@ from src.models.prediction import predict
 from src.models.storage import load_model, load_csv
 from config import MODEL_PATH, PROCESSED_DATA_PATH, FEATURES, CLUSTER_INFO
 from src.utils.form import get_user_input
-from src.utils.visualization import plot_scatter_clusters
 from src.utils.logger import get_logger
-from streamlit_extras.metric_cards import style_metric_cards
 
 logger = get_logger(__name__)
 
