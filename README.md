@@ -9,7 +9,7 @@ Streamlit application that segments mall customers based on their age, annual in
 
 ## Live Demo
 
-*Coming Soon*
+https://mall-customers-segmentation-a5kdbi8xu3bps7vxaf5am2.streamlit.app/
 
 ## Features
 
