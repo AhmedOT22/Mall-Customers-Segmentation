@@ -1,19 +1,28 @@
 import streamlit as st
-import pandas as pd
-import logging
 from src.models.prediction import predict
 from src.models.storage import load_model, load_csv
-from config import MODEL_PATH, PROCESSED_DATA_PATH, FEATURES, CLUSTER_INFO
-from src.utils.form import get_user_input
+from src.config import MODEL_PATH, PROCESSED_DATA_PATH, FEATURES, CLUSTER_INFO
+from src.utils.form import get_user_input, load_custom_styles
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
 # Streamlit Setup
 st.set_page_config(page_title="Mall Customer Segmentation", layout="wide")
-st.title("Mall Customer Segmentation")
-st.markdown("Predict the type of customer based on their age, income, and spending habits.")
-
+load_custom_styles()
+st.markdown("<h1>Mall Customer Segmentation</h1>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <p>
+        This tool helps segment mall customers based on their demographics and shopping behavior using machine learning.
+        By identifying customer personas, marketers can personalize campaigns, improve product targeting, and enhance shopping experiences.
+        <br><br>
+        <strong>How it works:</strong> Enter the customer’s age, income, and spending score to classify them into a persona cluster.
+        Our model analyzes this input and matches it to behavioral groups previously discovered in the dataset.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
 # Load resources
 @st.cache_resource
 def load_trained_model():
@@ -27,10 +36,19 @@ model = load_trained_model()
 df = load_clustered_data()
 
 # Get user input
-with st.sidebar:
-    st.header("Customer Input Form")
-    st.markdown("Use the sliders to simulate a customer's profile.")
-    submit, input_dict = get_user_input()
+with st.container():
+    form_col1, form_col2, form_col3 = st.columns([1, 2, 1])
+    with form_col2:
+        with st.form(key="input_form"):
+            st.markdown("""
+            <p style='margin-bottom:1.5rem; color:#555; font-size: 0.95rem;'>
+                <strong>Fill in the fields below to predict a customer persona:</strong><br>
+            </p>
+            """, unsafe_allow_html=True)
+
+            age, income, score = get_user_input()
+            input_dict = {'Age': age, 'Annual_Income': income, 'Spending_Score': score}
+            submit = st.form_submit_button("Predict Customer Persona")
 
 # Prediction
 if submit and model:
@@ -42,38 +60,25 @@ if submit and model:
             "recommendation": "No recommendation available."
         })
 
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.metric(label="Assigned Cluster", value=f"#{cluster}")
-            st.metric(label="Customer Persona", value=cluster_data['name'])
-
-        with col2:
-            st.subheader("Customer Profile")
-            st.markdown(f"**Description:** {cluster_data['description']}")
-            st.markdown(f"**Recommended Brands:** {cluster_data['recommendation']}")
-
+        st.markdown("<hr style='margin-top: 2rem; margin-bottom: 1.5rem;'>", unsafe_allow_html=True)
         
-        #style_metric_cards()
+        st.markdown(f"""
+            <div class="result-grid">
+                <div class="grid-row card-row-1">
+                    <div class="label-box">Persona</div>
+                    <div class="content-box">{cluster_data['name']}</div>
+                </div>
+                <div class="grid-row card-row-2">
+                    <div class="label-box">Description</div>
+                    <div class="content-box">{cluster_data['description']}</div>
+                </div>
+                <div class="grid-row card-row-3">
+                    <div class="label-box">Recommended Brands</div>
+                    <div class="content-box">{cluster_data['recommendation']}</div>
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
 
-        #if df is not None:
-         #   st.markdown("---")
-          #  st.subheader("Visual Cluster Placement (2D)")
-#
- #           df_copy = df.copy()
-  #          df_copy['User'] = 'Existing'
-#
- #           user_df = pd.DataFrame([input_dict])
-  #          user_df['Cluster'] = cluster
-   #         user_df['User'] = 'You'
-#
- #           viz_df = pd.concat([
-  #              df_copy[['Annual_Income', 'Spending_Score', 'Cluster', 'User']],
-   #             user_df[['Annual_Income', 'Spending_Score', 'Cluster', 'User']]
-    #        ])
-#
- #           fig = plot_scatter_clusters(viz_df, x='Annual_Income', y='Spending_Score',
-  #                                      label_col='Cluster', title='Cluster Visualization')
-   #         st.pyplot(fig)
 
     except Exception as e:
         st.error(f"Prediction failed: {e}")

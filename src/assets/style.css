@@ -1,0 +1,183 @@
+/* Global App Styles */
+.stApp {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ebece9;
+    color: #212529;
+    padding-top: 1rem;
+}
+
+/* Headings */
+.stMarkdown h1 {
+    text-align: center;
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    
+}
+
+.stMarkdown p {
+    text-align: left;
+    font-size: 1.05rem;
+    color: #4a4a4a;
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.6;
+}
+
+/* Form Container */
+.block-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 2.5rem 2.5rem;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #0b5394;
+    box-shadow: 0 0 0 3px rgba(11, 83, 148, 0.15);
+    outline: none;
+}
+
+/* Button Styling */
+.stButton > button {
+    background-color: #0b5394;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.7rem 1.8rem;
+    border-radius: 8px;
+    border: none;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.stButton > button:hover {
+    background-color: #073763;
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
+
+
+
+.result-grid {
+    max-width: 950px;
+    margin: 3.5rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Base Row Styling */
+.grid-row {
+    display: flex;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+    min-height: 130px;
+    transition: transform 0.3s ease;
+    background-color: #fff;
+}
+
+.grid-row:hover {
+    transform: translateY(-5px);
+}
+
+/* Label Section */
+.label-box {
+    width: 250px;
+    padding: 2rem;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Content Section */
+.content-box {
+    flex: 1;
+    padding: 2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333333;
+    line-height: 1.7;
+    display: flex;
+    align-items: center;
+}
+
+/* Card 1 – Blue */
+.card-row-1 .label-box {
+    background: linear-gradient(135deg, #0b5394, #3a78c2);
+}
+.card-row-1 .content-box {
+    background-color: #e6f0fb;
+}
+
+/* Card 2 – Green */
+.card-row-2 .label-box {
+    background: linear-gradient(135deg, #357a38, #4caf50);
+}
+.card-row-2 .content-box {
+    background-color: #eaf8ec;
+}
+
+/* Card 3 – Purple */
+.card-row-3 .label-box {
+    background: linear-gradient(135deg, #673ab7, #9575cd);
+}
+.card-row-3 .content-box {
+    background-color: #f3edf9;
+}
+
+/* Entry Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.grid-row {
+    animation: slideFade 0.5s ease-in-out both;
+}
+
+@keyframes slideFade {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
